@@ -2,11 +2,13 @@
 
 # Installation
 
+Cloned repo need to be located in /root/tempfix_fdb_dsa
+
 ```
-root@turris:~# git clone https://github.com/stanojr/tempfix_fdb_dsa.git
-root@turris:~# chmod 755 tempfix_fdb_dsa/*
-root@turris:~# cp tempfix_fdb_dsa /etc/init.d/tempfix_fdb_dsa
-root@turris:~# /etc/init.d/tempfix_fdb_dsa start
-root@turris:~# /etc/init.d/tempfix_fdb_dsa enable
+git clone https://github.com/stanojr/tempfix_fdb_dsa.git
+chmod 755 tempfix_fdb_dsa/tempfix*
+cp tempfix_fdb_dsa/tempfix_fdb_dsa /etc/init.d/tempfix_fdb_dsa
+/etc/init.d/tempfix_fdb_dsa start
+/etc/init.d/tempfix_fdb_dsa enable
 ```
 
