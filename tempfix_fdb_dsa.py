@@ -19,14 +19,6 @@ switch_ports = [
 rec = re.compile('(([0-9a-fA-F]:?){12}) dev ([a-z0-9-]+) master %s' % (bridge_iface))
 rec_port = re.compile('([0-9a-fA-F]:?){12} vlan 1 self')
 
-for i in range (3,10):
-  try:
-    os.close(i)
-    print("closed unknown fd {}".format(str(i)))
-  except Exception as e:
-    print("cannot close fd {} {}".format(i, str(e)))
-    pass
-
 print("start monitoring fdb", flush=True)
 proc = subprocess.Popen(['/usr/sbin/bridge','monitor', 'fdb'], stdout=subprocess.PIPE, stderr=subprocess.PIPE, bufsize=1, universal_newlines=True, close_fds=True)
 while True:
