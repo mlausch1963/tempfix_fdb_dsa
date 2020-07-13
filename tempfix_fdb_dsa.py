@@ -17,7 +17,7 @@ switch_ports = [
                ]
 
 rec = re.compile('(([0-9a-fA-F]:?){12}) dev ([a-z0-9-]+) master %s' % (bridge_iface))
-rec_port = re.compile('([0-9a-fA-F]:?){12} vlan 1 self')
+rec_port = re.compile('(([0-9a-fA-F]:?){12}) vlan 1 self')
 
 print("start monitoring fdb", flush=True)
 proc = subprocess.Popen(['/usr/sbin/bridge','monitor', 'fdb'], stdout=subprocess.PIPE, stderr=subprocess.PIPE, bufsize=1, universal_newlines=True, close_fds=True)
@@ -45,7 +45,7 @@ while True:
 
         for line_port in proc_port.stdout.decode().split('\n'):
           if line_port == '': break
-          rec_port.match(line_port)
-          if (rec_port):
-            print("found mac: {} on iface: {}, deleting fdb from {}".format(mac, iface, (*switch_port)), flush=True)
+          m2 = rec_port.match(line_port)
+          if (m2 and m2.group(1) == mac):
+            print("mac: {} appeared on iface: {}, deleting fdb from {}".format(mac, iface, (switch_port)), flush=True)
             proc_delentry = subprocess.run(["/usr/sbin/bridge", "fdb", "del", mac, *switch_port], close_fds=True)
